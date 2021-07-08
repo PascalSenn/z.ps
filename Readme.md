@@ -70,6 +70,22 @@ Register-ArgumentCompleter -CommandName z -ScriptBlock {
 }
 ```
 
+Tab Completion 
+-------
+You can easily configure tab completion in your user profile by using the built in ArgumentCompleter 
+
+```powershell
+Register-ArgumentCompleter -CommandName z -ScriptBlock {
+	param($commandName, $parameterName, $wordToComplete) 
+	  Search-NavigationHistory $commandName -List | %{ $_.Path} | ForEach-Object {
+	  New-Object -Type System.Management.Automation.CompletionResult -ArgumentList $_,
+		  $_,
+		  "ParameterValue",
+		  $_
+  }
+}
+```
+
 
 License
 -------
